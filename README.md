@@ -1,2 +1,41 @@
 # InputValidator
-Simple routine that validates parameters or variables.
+
+Routine that can be used to perform input validation for any routine to ensure that parameters are present or a certain type. You can specify each possible type that the data value can represent and optionally require that the value have all of the types. Here are the generic types that can be used:
+
+- required : If set, the value must be present and defined.
+
+- array    : If set, value supplied must be an array.
+
+- number   : If set, value supplied must be a number.
+
+This routine uses IDL's `isa` function to make the comparison so, in addition to the types above, you can specify anything else that can pass as an argument. Some exampled are: byte, int, long, float, hash, orderedhash, enviraster. They can be any IDL-specific data type and it can also be the type of object such as idlgrwindow or any named, custom object type.
+
+## Examples
+
+See the PRO code on descriptions of the keywords.
+
+### Validate that an argument is present and defined:
+
+```idl
+inputValidator, hash('nameOfArg', 'required')
+```
+
+Note that this means the variable is not undefined (i.e. defined in the IDL code or passed in as a parameter). A variable defined as `!NULL` will still pass.
+
+### Validate that an argument is a string array and present
+
+```idl
+inputValidator, hash('nameOfArg', ['string', 'array', 'required'])
+```
+
+### Validate that an argument, if present is a double array
+
+```idl
+inputValidator, hash('nameOfArg', ['double', 'array'])
+```
+
+## License
+
+(c) 2018 Harris Geospatial Solutions, Inc.
+
+Licensed under MIT, see LICENSE.txt for more details.
