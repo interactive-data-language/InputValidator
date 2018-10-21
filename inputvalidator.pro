@@ -71,7 +71,7 @@
 ;     an existing variable from something like a hash so you can print the term
 ;     "Key" which is the correct term. 
 ;
-; :Author: Zachary Norman - GitHub : znorman-harris
+; :Author: Zachary Norman - GitHub : [znorman-harris](https://github.com/znorman-harris)
 ;-
 pro inputValidator, requirements,$
   CALLED_FROM = called_from,$
@@ -132,6 +132,7 @@ pro inputValidator, requirements,$
     required = 0
     array = 0
     number = 0
+    file = 0
     
     ;flag for if we need all data types specified to be present
     ;otherwise just need one
@@ -156,6 +157,7 @@ pro inputValidator, requirements,$
         'required' : required = 1
         'array'    : array = 1
         'number'   : number = 1
+        'file'     : file = 1
         'all'      : all = 1
 
         else:begin
@@ -194,6 +196,13 @@ pro inputValidator, requirements,$
     if (array) then begin
       if ~isa(value, /ARRAY) then begin
         message, pName + ' "' + varPrint + '" is not an array, required!', LEVEL = scopeLevel
+      endif
+    endif
+    
+    ;check for file
+    if (file) then begin
+      if ~file_test(value) then begin
+        message, pName + ' "' + varPrint + '" is not a file on disk, required!', LEVEL = scopeLevel
       endif
     endif
     

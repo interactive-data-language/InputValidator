@@ -8,6 +8,8 @@ Routine that can be used to perform input validation for any routine to ensure t
 
 - number   : If set, value supplied must be a number.
 
+- file     : If set, the value must represent a valid file on disk.
+
 This routine uses IDL's `isa` function to make the comparison so, in addition to the types above, you can specify anything else that can pass as an argument to the `isa` routine. Some additional examples of types are are: byte, int, long, float, hash, orderedhash, enviraster, graphicswin. The addition arguments can be any IDL-specific data type or it can also be the type of object such as idlgrwindow or any named, custom object.
 
 ## Examples
@@ -36,6 +38,6 @@ inputValidator, hash('nameOfArg', ['double', 'array'])
 
 ## License
 
-(c) 2018 Harris Geospatial Solutions, Inc.
+Copyright (c) 2018 Harris Geospatial Solutions, Inc.
 
 Licensed under MIT, see LICENSE.txt for more details.
