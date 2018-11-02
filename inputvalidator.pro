@@ -133,6 +133,7 @@ pro inputValidator, requirements,$
     array = 0
     number = 0
     file = 0
+    directory = 0
     
     ;flag for if we need all data types specified to be present
     ;otherwise just need one
@@ -154,11 +155,12 @@ pro inputValidator, requirements,$
     foreach req, strlowcase(reqs) do begin
       case (req) of
         ;basic variable information
-        'required' : required = 1
-        'array'    : array = 1
-        'number'   : number = 1
-        'file'     : file = 1
-        'all'      : all = 1
+        'required'  : required = 1
+        'array'     : array = 1
+        'number'    : number = 1
+        'file'      : file = 1
+        'directory' : directory = 1
+        'all'       : all = 1
 
         else:begin
           dTypes = [dTypes, req]
@@ -203,6 +205,13 @@ pro inputValidator, requirements,$
     if (file) then begin
       if ~file_test(value) then begin
         message, pName + ' "' + varPrint + '" is not a file on disk, required!', LEVEL = scopeLevel
+      endif
+    endif
+    
+    ;check for directory
+    if (directory) then begin
+      if ~file_test(value, /DIRECTORY) then begin
+        message, pName + ' "' + varPrint + '" is not a directory on disk, required!', LEVEL = scopeLevel
       endif
     endif
     
