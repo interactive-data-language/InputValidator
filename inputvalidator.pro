@@ -37,6 +37,10 @@
 ;    - array    : If set, value supplied must be an array.
 ;    
 ;    - number   : If set, value supplied must be a number.
+;    
+;    - file     : If set, value must be a file on disk.
+;    
+;    - directory: If set, value must be a folder on disk.
 ;                 
 ;    This routine uses IDL's `isa` function to make the comparison so, 
 ;    in addition to the types above, you can specify anything else that
@@ -127,7 +131,10 @@ pro inputValidator, requirements,$
   level = scope_level()
   
   ;loop over each element
-  foreach reqs, requirements, varName do begin
+  foreach initReqs, requirements, varName do begin
+    ;trim extra strings
+    reqs = strtrim(initReqs,2)
+    
     ;init all of our basic flags
     required = 0
     array = 0
